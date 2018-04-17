@@ -12,7 +12,15 @@ newList2 = []
 for i in result:
     name = i.split('/')[-1].strip()
     port = i.split()[3].split(':')[-1]
-    newList.append([port, name])
+    newList.append([name, port])
+
+tmpList = newList[:]
+
+for name, port in newList:
+    if name == 'beam.smp' and port not in ['5672', '15672', '9100', '55672']:
+        tmpList.remove([name, port])
+
+newList = tmpList
 
 for i in newList:
     if i not in newList2:
