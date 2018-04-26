@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding: utf-8
 import commands
+import re
 
 _, result = commands.getstatusoutput('netstat -lntp')
 result = result.split('\n')
@@ -20,6 +21,8 @@ for name, port in newList:
     if name == 'beam.smp' and port not in ['5672', '15672', '9100', '55672']:
         tmpList.remove([name, port])
     elif name == 'vsftpd' and port not in ['21', ]:
+        tmpList.remove([name, port])
+    elif re.match('tcp*', name):
         tmpList.remove([name, port])
 
 newList = tmpList
